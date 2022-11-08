@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+
+		div {
+			background-color: whitesmoke;
+			border: solid gold 2px;
+			border-radius: 25px;
+			padding: 15px 15px 15px 15px;
+		}
+		input[type=text], select {
+			width: 60%;
+			margin: 8px 0;
+			padding: 1px;
+			border: 1px solid rgb(239, 9, 9);
+			border-radius: 10px;
+			}
+
+		input[type="radio"], input[type="checkbox"] {
+			margin: 8px 0;
+			width: 1em;
+			height: 1rem;
+			accent-color: green;
+			}
+
+		input[type=button], input[type=submit], input[type=reset] {
+			 background-color: green;
+			 color: white;
+			}
+	</style>
+	<title>Joulukysely</title>
+</head>
+<body>
+	<div>
+		<form>
+			<label for="nimi">Nimesi: </label>
+			<input type="text" name="joulukysely" id="nimi" value="" autocomplete="off">
+			<br><br>
+
+			<label for="vari">Joulun väri on:</label>
+			<select name="vari" id="vari">
+				<option value="green">Vihreä</option>
+				<option value="gold">Kultainen</option>
+				<option value="red">Punainen</option>
+				<option value="blue">Sininen</option>
+				<option value="white">Valkoinen</option>
+			</select>
+			<br><br>
+
+			<label for="ominaisuudet">Jouluun ehdottomasti kuuluu: </label><br><br>
+			<input type="checkbox" name="ominaisuudet" value="Joulupukki" id="joulupukki">
+			<label for="joulupukki">Joulupukki</label><br>
+			<input type="checkbox" name="ominaisuudet" value="Enkelit" id="enkelit">
+			<label for="enkelit">Enkelit</label><br>
+			<input type="checkbox" name="ominaisuudet" value="Tontut" id="tontut">
+			<label for="tontut">Tontut</label><br>
+			<input type="checkbox" name="ominaisuudet" value="Kaupallisuus" id="kaupallisuus">
+			<label for="kaupallisuus">Kaupallisuus</label><br>
+
+			<p>Joulu on: </p>
+			<input type="radio" name="jouluon" value="Parasta" id="parasta">
+			<label for="parasta">Parasta</label><br>
+			<input type="radio" name="jouluon" value="Loma" id="loma">
+			<label for="loma">Loma</label><br>
+			<input type="radio" name="jouluon" value="Turha" id="turha">
+			<label for="turha">Turha</label><br><br>
+
+			<input type="button" value="Vastaa" id="vastaus">
+		</form>
+
+		<br>
+		<p id="placeholder">Minkälainen Jouluihminen sinä olet?</p>
+	</div>
+
+	<script type="text/javascript">
+		document.getElementById('vastaus').addEventListener('click', submitForm);
+
+		function submitForm() {
+			let nimi = document.getElementById('nimi').value;
+			let arvo = document.getElementById('vari').value;
+			let joulup = document.getElementById('joulupukki');
+			let enkel = document.getElementById('enkelit');
+			let tonttu = document.getElementById('tontut');
+			let kaup = document.getElementById('kaupallisuus');
+			let jouluis = document.querySelector('input[name="jouluon"]:checked').value;
+			let omkaikki = [];
+			let taivutettu = "";
+			let jouluihminen = "";
+
+			if (joulup.checked == true) {
+				omkaikki.push(joulup.value);
+			}
+			if (enkel.checked == true) {
+				omkaikki.push(enkel.value);
+			}
+			if (tonttu.checked == true) {
+				omkaikki.push(tonttu.value);
+			}
+			if (kaup.checked == true) {
+				omkaikki.push(kaup.value);
+			}
+
+			if (arvo == 'green') {
+				taivutettu = "vihreään";
+			}
+			else if (arvo == 'gold') {
+				taivutettu = "kultaiseen";
+			}
+			else if (arvo == 'red') {
+				taivutettu = "punaiseen";
+			}
+			else if (arvo == 'blue') {
+				taivutettu = "siniseen";
+			}
+			else if (arvo == 'white') {
+				taivutettu = "valkoiseen";
+			}
+
+			if (jouluis == 'Parasta') {
+				jouluihminen = "Olet oikea jouluihminen!";
+			}
+			else if (jouluis == 'Loma') {
+				jouluihminen = "Joulu on sinulle juhla muiden joukossa.";
+			}
+			else if (jouluis == 'Turha') {
+				jouluihminen = "Joulun voisi peruuttaa.";
+			}
+
+			let joined = omkaikki.join(", ");
+
+			document.getElementById('placeholder').innerHTML = "Alle 2 kuukautta jouluun! " + nimi + ", " + taivutettu + " jouluusi kuluu " + joined + ". " + jouluihminen;
+		}
+	</script>
+</body>
+</html>
